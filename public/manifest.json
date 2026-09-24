@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+"name": "Clip Stack",
+  "version": "1.0.0",
+  "description": "A Chrome extension built with React and Vite.",
+  "action": {
+ "action": {
+  "default_popup": "index.html"
+}
+  },
+  "permissions": []
+}
