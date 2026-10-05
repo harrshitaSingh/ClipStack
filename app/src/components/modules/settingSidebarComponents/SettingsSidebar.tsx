@@ -1,7 +1,8 @@
 import { useState } from "react";
 import type { ReactNode } from "react";
-import { clips } from "../cardComponents/clipsDemoData";
 import { Button } from "../../Button";
+import { AboutSettings } from "./AboutSetting";
+import { AppearanceSettings } from "./AppearanceSetting";
 import { GeneralSettings } from "./GeneralSetting";
 
 type SettingsSection = "General" | "Privacy" | "Shortcuts" | "Appearance" | "About";
@@ -55,8 +56,8 @@ type SidebarItem = {
 
 const settingsItems: SidebarItem[] = [
   { label: "General", icon: GeneralIcon, page: GeneralSettings },
-  { label: "Appearance", icon: AppearanceIcon, page: GeneralSettings },
-  { label: "About", icon: AboutIcon, page: GeneralSettings },
+  { label: "Appearance", icon: AppearanceIcon, page: AppearanceSettings },
+  { label: "About", icon: AboutIcon, page: AboutSettings },
 ];
 
 export function SettingsSidebar() {
@@ -65,8 +66,8 @@ export function SettingsSidebar() {
   const Panel = activeItem?.page;
 
   return (
-    <div className="mt-3 flex min-w-0 items-stretch gap-2">
-      <nav aria-label="Settings" className="flex w-[104px] shrink-0 flex-col gap-0.5">
+    <div className="mt-3 flex min-h-0 min-w-0 flex-1 items-stretch gap-2">
+      <nav aria-label="Settings" className="flex shrink-0 flex-col gap-1">
         {settingsItems.map((item) => {
           const isActive = item.label === selected;
 
@@ -76,21 +77,21 @@ export function SettingsSidebar() {
               aria-current={isActive ? "page" : undefined}
               className={
                 isActive
-                  ? "flex w-full min-w-0 cursor-pointer items-center gap-1.5 rounded-xl bg-[#ece8ff] px-2 py-2 text-left text-[12px] font-semibold text-[#5b4ef0]"
-                  : "flex w-full min-w-0 cursor-pointer items-center gap-1.5 rounded-xl px-2 py-2 text-left text-[12px] font-medium text-[#7a8394] hover:bg-white"
+                  ? "flex cursor-pointer items-center gap-1.5 rounded-xl bg-[#ece8ff] px-2 py-2 text-left text-[12px] font-semibold whitespace-nowrap text-[#5b4ef0]"
+                  : "flex cursor-pointer items-center gap-1.5 rounded-xl px-2 py-2 text-left text-[12px] font-medium whitespace-nowrap text-[#7a8394] hover:bg-white"
               }
               onClick={() => {
                 setSelected(item.label);
               }}
             >
               <item.icon />
-              <span className="min-w-0 truncate">{item.label}</span>
+              {item.label}
             </Button>
           );
         })}
       </nav>
-      <div className="min-h-[280px] min-w-0 flex-1 overflow-hidden rounded-[22px] bg-white p-2">
-        {Panel ? <Panel clips={clips} /> : null}
+      <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-x-hidden overflow-y-auto rounded-[22px] bg-white p-2.5">
+        {Panel ? <Panel /> : null}
       </div>
     </div>
   );
